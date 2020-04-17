@@ -21,4 +21,4 @@ Remove
 - sls remove -stage dev
 
 Data file
-- To upload the mpans.csv test file to S3 (initially and when you change it), use aws cli: (in the data dir) aws s3 cp mpans s3://sls-test-mpans-dev
+- To upload the mpans.csv test file to S3 (initially and when you change it), use aws cli: (in the data dir) aws s3 cp mpans.csv s3://sls-test-mpans-dev
