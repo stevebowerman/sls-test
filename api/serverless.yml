@@ -1,0 +1,45 @@
+service: sls-test
+
+package:
+  individually: true
+  
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-1
+  stage: ${opt:stage,'dev'}
+  memorySize: 128
+  stackTags:
+    PRODUCT: sls-test
+    STAGE: ${self:provider.stage}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 's3:GetObject'
+      Resource:
+        - !GetAtt DataBucket.Arn
+        - !Join ['/', [ !GetAtt DataBucket.Arn, '*']]
+    
+functions:
+  getmeterdetails:
+    name: ${self:service}-getmeterdetails-${self:provider.stage}
+    handler: handlers/getmeterdetails.lambda_handler
+    package:
+      exclude:
+        - "**/**"
+      include:
+        - handlers/getmeterdetails.py
+    events:
+      - http:
+          path: mpan/{mpan}
+          method: get
+    environment:
+      BUCKET_NAME: !Ref DataBucket
+      FILE_NAME: mpans.csv
+
+resources:
+  Resources:
+    DataBucket:
+      Type: AWS::S3::Bucket
+      Properties: 
+        BucketName: ${self:service}-mpans-${self:provider.stage}
