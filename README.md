@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=stevebowerman_sls-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=stevebowerman_sls-test)
+
 # Serverless API example
 
 Serverless framework example https://serverless.com/
@@ -16,6 +18,7 @@ Bootstrap
 
 Deploy
 - sls deploy -stage dev
+- Make sure you change scripts/test.py to reflect the API Gateway endpoint
 
 Remove
 - sls remove -stage dev
