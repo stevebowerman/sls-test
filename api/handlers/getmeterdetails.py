@@ -48,15 +48,14 @@ def lambda_handler(event, context):
         }
     
 
-    finally:
-        logger.info(response)
+    logger.info(response)
 
-        return {
-            "statusCode": status,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": True
-            },
-            "body": json.dumps(response),
-            "isBase64Encoded": False
-        }
+    return {
+        "statusCode": status,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": True
+        },
+        "body": json.dumps(response),
+        "isBase64Encoded": False
+    }
